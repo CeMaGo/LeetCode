@@ -8,21 +8,35 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
-    public ListNode middleNode(ListNode head) {
-        ArrayList<ListNode> array = new ArrayList<>();
+// class Solution {
+//     public ListNode middleNode(ListNode head) {
+//         ArrayList<ListNode> array = new ArrayList<>();
 
-        int length = 0;
+//         int length = 0;
 
-        while ( head != null ){
-            array.add(head);
-            head = head.next;
-            length++;
-        }
-        return array.get( length / 2 );
+//         while ( head != null ){
+//             array.add(head);
+//             head = head.next;
+//             length++;
+//         }
+//         return array.get( length / 2 );
 
-    }
-}
+//     }
+// }
 
 // Time Complexity = O(n)
 // Space Complexity = O(n)
+
+
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode middle = head;
+        ListNode end = head;
+
+        while ( end !== null && end.next !== null) {
+            middle = middle.next;
+            end = end.next.next;
+        }
+        return middle;
+    }
+}
