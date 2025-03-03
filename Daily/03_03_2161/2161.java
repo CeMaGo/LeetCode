@@ -35,27 +35,23 @@
 //-------------------------->>> Opt Runtime <<<----------------------------------\\
 
 class Solution {
-    publin int[] pivotArray(int[] nums, int pivot) {
+    public int[] pivotArray(int[] nums, int pivot) {
         int[] result = new int[nums.length];
-        int lessIndex = 0;
-        int equalIndex = 0;
-        int greater = 0;
-
-        for ( int num : nums ) {
-            if ( num < privot ) {
-                result[lessIndex++] = num;
+        int index = 0;
+        
+        for (int num : nums) {
+            if (num < pivot) {
+                result[index++] = num;
             }
         }
-
-        for ( int num : nums ) {
-            if ( num == pivot ) {
-                result[lessIndex++] = num;
+        for (int num : nums) {
+            if (num == pivot) {
+                result[index++] = num;
             }
         }
-
-        for ( int num : nums ) {
-            if ( num > pivot ) {
-                result[lessIndex++] = num;
+        for (int num : nums) {
+            if (num > pivot) {
+                result[index++] = num;
             }
         }
         return result;
