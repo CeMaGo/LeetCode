@@ -1,32 +1,36 @@
 class Solution {
-    public int minZeroArray(int[] nums, int[][] queries){
-        int n = queries.length;
-        for(int k = 1; k <= n; k++) {
-            int[] temp = nums.clone();
-            for ( k > 0) {
+    private boolean isZeroArray(int[] nums, int[][] queries, int mid) {
+        int n = nums.length;
+        int[] temp = nums.clone();
+        int[] delta = new int[n + 1];
 
-                for(int i = 0; i < k; i++) {
-                    int l = queries[i][0];
-                    int r = queries[i][1];
-                    int val = queries[i][2];
-                    for(int j = l; j <= r; j++) {
-                        temp[j] = Math.max(0, temp[j] - val);
-            }
-                }
-            }
-            if (isZeroArray(temp)) {
-                return k;
-            }
+        for (int i = 0; i < mid; i++) {
+            int l = queries[i][0], r = queries[i][1], v = queries[i][2];
+            delta[l] -= v;
+            if (r + 1 < n) delta[r + 1] += v;
         }
-        return -1;
-    }
 
-    private boolean isZeroArray(int[] arr) {
-        for (int num :arr ) {
-            if ( num != 0) {
-                return false;
-            }
+        int currDecrement = 0;
+        for (int i = 0; i < n; i++) {
+            currDecrement += delta[i];
+            temp[i] += currDecrement;
+            if (temp[i] > 0) return false;
         }
         return true;
+    }
+
+    public int minZeroArray(int[] nums, int[][] queries) {
+        int left = 0, right = queries.length, ans = -1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (isZeroArray(nums, queries, mid)) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
     }
 }
